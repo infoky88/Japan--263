@@ -20,7 +20,9 @@
   --good:#0f766e;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -76,8 +78,13 @@ body{
   border-color:var(--accent);
 }
 
-.panel{display:none}
-.panel.active{display:block}
+.panel{
+  display:none;
+}
+
+.panel.active{
+  display:block;
+}
 
 .card{
   background:#fff;
@@ -85,6 +92,7 @@ body{
   border-radius:18px;
   padding:16px;
   margin-bottom:12px;
+  box-shadow:0 6px 18px rgba(17,24,39,.04);
 }
 
 .section-title{
@@ -196,6 +204,11 @@ button{
   grid-template-columns:repeat(5,1fr);
   gap:7px;
   margin-top:10px;
+}
+
+.quick button{
+  padding:9px 4px;
+  font-size:12px;
 }
 
 .summary{
@@ -314,6 +327,19 @@ button{
   padding-top:6px;
 }
 
+.calc-preview{
+  margin-top:10px;
+  background:var(--soft);
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:13px;
+  font-weight:800;
+}
+
+.calc-preview strong{
+  font-size:18px;
+}
+
 @media(max-width:480px){
 
   .tabs{
@@ -338,982 +364,1180 @@ button{
 
 <div class="wrap">
 
-<div class="hero">
-  <h1>Japan Travel Money</h1>
-  <p>JPY ↔ MYR • 4-person trip • Cash • ICOCA • Card • Daily spending</p>
-</div>
+  <div class="hero">
+    <h1>Japan Travel Money</h1>
+    <p>JPY ↔ MYR • 4-person trip • Cash • ICOCA • Card • Daily spending</p>
+  </div>
 
-<div class="tabs">
-  <button class="tab active" data-panel="convert">Convert</button>
-  <button class="tab" data-panel="split">Split</button>
-  <button class="tab" data-panel="wallet">Trip Fund</button>
-  <button class="tab" data-panel="daily">Daily</button>
-</div>
 
+  <div class="tabs">
 
-<!-- CONVERT -->
+    <button class="tab active" data-panel="convert">
+      Convert
+    </button>
 
-<section id="convert" class="panel active">
+    <button class="tab" data-panel="split">
+      Split
+    </button>
 
-<div class="card">
+    <button class="tab" data-panel="wallet">
+      Trip Fund
+    </button>
 
-<div class="section-title">
-Quick JPY → MYR
-</div>
+    <button class="tab" data-panel="daily">
+      Daily
+    </button>
 
-<div class="field">
+  </div>
 
-<label>
-Japanese Yen
-</label>
 
-<div class="moneyline">
+  <!-- CONVERT -->
 
-<span class="prefix">
-¥
-</span>
+  <section id="convert" class="panel active">
 
-<input
-id="convJPY"
-type="number"
-placeholder="1000">
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Quick JPY → MYR
+      </div>
 
-</div>
+      <div class="field">
 
+        <label>
+          Japanese Yen
+        </label>
 
-<div class="quick">
+        <div class="moneyline">
 
-<button data-q="500">
-¥500
-</button>
+          <span class="prefix">
+            ¥
+          </span>
 
-<button data-q="1000">
-¥1k
-</button>
+          <input
+            id="convJPY"
+            type="number"
+            inputmode="decimal"
+            placeholder="1000">
 
-<button data-q="2000">
-¥2k
-</button>
+        </div>
 
-<button data-q="5000">
-¥5k
-</button>
+      </div>
 
-<button data-q="10000">
-¥10k
-</button>
 
-</div>
+      <div class="quick">
 
+        <button data-q="500">
+          ¥500
+        </button>
 
-<div class="result">
+        <button data-q="1000">
+          ¥1k
+        </button>
 
-<div
-id="convMYR"
-class="big">
+        <button data-q="2000">
+          ¥2k
+        </button>
 
-RM 0.00
+        <button data-q="5000">
+          ¥5k
+        </button>
 
-</div>
+        <button data-q="10000">
+          ¥10k
+        </button>
 
-<div
-id="convNote"
-class="small">
-</div>
+      </div>
 
-</div>
 
-</div>
+      <div class="result">
 
+        <div
+          id="convMYR"
+          class="big">
 
-<div class="card">
+          RM 0.00
 
-<div class="section-title">
-MYR → JPY
-</div>
+        </div>
 
-<div class="field">
+        <div
+          id="convNote"
+          class="small">
+        </div>
 
-<label>
-Malaysian Ringgit
-</label>
+      </div>
 
-<div class="moneyline">
+    </div>
 
-<span class="prefix">
-RM
-</span>
 
-<input
-id="convMYRInput"
-type="number"
-placeholder="100">
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        MYR → JPY
+      </div>
 
-</div>
+      <div class="field">
 
+        <label>
+          Malaysian Ringgit
+        </label>
 
-<div class="result">
+        <div class="moneyline">
 
-<div
-id="convJPYResult"
-class="big">
+          <span class="prefix">
+            RM
+          </span>
 
-¥0
+          <input
+            id="convMYRInput"
+            type="number"
+            inputmode="decimal"
+            placeholder="100">
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-</div>
 
+      <div class="result">
 
-<div class="card">
+        <div
+          id="convJPYResult"
+          class="big">
 
-<div class="section-title">
-Your Exchange Rate
-</div>
+          ¥0
 
-<div class="row">
+        </div>
 
-<div class="field">
+      </div>
 
-<label>
-MYR per ¥1,000
-</label>
+    </div>
 
-<input
-id="rate"
-type="number"
-step="0.01"
-value="26.30">
 
-</div>
+    <div class="card">
 
+      <div class="section-title">
+        Your Exchange Rate
+      </div>
 
-<div class="field">
+      <div class="row">
 
-<label>
-Trip Group Size
-</label>
+        <div class="field">
 
-<input
-id="groupSize"
-type="number"
-value="4">
+          <label>
+            MYR per ¥1,000
+          </label>
 
-</div>
+          <input
+            id="rate"
+            type="number"
+            step="0.01"
+            value="26.30">
 
-</div>
+        </div>
 
 
-<div
-id="unitRate"
-class="tag">
+        <div class="field">
 
-¥1 = RM0.02630
+          <label>
+            Trip Group Size
+          </label>
 
-</div>
+          <input
+            id="groupSize"
+            type="number"
+            min="1"
+            max="9"
+            step="1"
+            value="4">
 
-</div>
+        </div>
 
-</section>
+      </div>
 
 
+      <div
+        id="unitRate"
+        class="tag">
 
-<!-- SPLIT -->
+        ¥1 = RM0.02630
 
-<section id="split" class="panel">
+      </div>
 
-<div class="card">
 
-<div class="section-title">
-Split an Expense
-</div>
+      <div class="actions">
 
-<div class="row">
+        <button id="resetRate">
+          Reset Rate
+        </button>
 
-<div class="field">
+        <button
+          id="resetAll"
+          class="danger">
 
-<label>
-Expense Amount
-</label>
+          Reset App Data
 
-<input
-id="splitAmount"
-type="number"
-placeholder="12000">
+        </button>
 
-</div>
+      </div>
 
+    </div>
 
-<div class="field">
+  </section>
 
-<label>
-Split Between
-</label>
 
-<input
-id="splitPeople"
-type="number"
-value="4">
+  <!-- SPLIT -->
 
-</div>
+  <section id="split" class="panel">
 
-</div>
+    <div class="card">
 
+      <div class="section-title">
+        Split an Expense
+      </div>
 
-<div class="result">
+      <div class="row">
 
-<div
-id="splitJPY"
-class="big">
+        <div class="field">
 
-¥0 / person
+          <label>
+            Expense Amount
+          </label>
 
-</div>
+          <div class="moneyline">
 
-<div
-id="splitMYR"
-class="small">
+            <span class="prefix">
+              ¥
+            </span>
 
-RM 0.00 / person
+            <input
+              id="splitAmount"
+              type="number"
+              inputmode="decimal"
+              placeholder="12000">
 
-</div>
+          </div>
 
-</div>
+        </div>
 
-</div>
 
-</section>
+        <div class="field">
 
+          <label>
+            Split Between
+          </label>
 
+          <input
+            id="splitPeople"
+            type="number"
+            min="1"
+            max="9"
+            step="1"
+            value="4">
 
-<!-- TRIP FUND -->
+        </div>
 
-<section id="wallet" class="panel">
+      </div>
 
 
-<!-- 1 ADD SPENDING -->
+      <div class="result">
 
-<div class="card">
+        <div
+          id="splitJPY"
+          class="big">
 
-<div class="section-title">
-Add Spending
-</div>
+          ¥0 / person
 
+        </div>
 
-<div class="row">
+        <div
+          id="splitMYR"
+          class="small">
 
-<div class="field">
+          RM 0.00 / person
 
-<label>
-Payment Method
-</label>
+        </div>
 
-<select id="walletMethod">
+      </div>
 
-<option value="cash">
-Cash
-</option>
+    </div>
 
-<option value="icoca">
-ICOCA
-</option>
 
-<option value="card">
-Card
-</option>
+    <div class="card">
 
-</select>
+      <div class="section-title">
+        Quick Family Cost
+      </div>
 
-</div>
+      <div class="field">
 
+        <label>
+          Cost Per Person
+        </label>
 
-<div
-id="walletCurrencyField"
-class="field hidden">
+        <div class="moneyline">
 
-<label>
-Payment Currency
-</label>
+          <span class="prefix">
+            ¥
+          </span>
 
-<select id="walletCurrency">
+          <input
+            id="ppAmount"
+            type="number"
+            inputmode="decimal"
+            placeholder="1500">
 
-<option value="JPY">
-JPY ¥
-</option>
+        </div>
 
-<option value="MYR">
-MYR RM
-</option>
+      </div>
 
-</select>
 
-</div>
+      <div class="result">
 
-</div>
+        <div
+          id="familyJPY"
+          class="big">
 
+          ¥0 total
 
-<div
-class="field"
-style="margin-top:10px;">
+        </div>
 
-<label id="walletAmountLabel">
-Amount ¥
-</label>
+        <div
+          id="familyMYR"
+          class="small">
 
-<input
-id="walletAmount"
-type="number"
-placeholder="1200">
+          RM 0.00 total
 
-</div>
+        </div>
 
+      </div>
 
-<div
-class="field"
-style="margin-top:10px;">
+    </div>
 
-<label>
-Description
-</label>
+  </section>
 
-<input
-id="walletDesc"
-type="text"
-placeholder="Lunch / taxi / ticket">
 
-</div>
+  <!-- TRIP FUND -->
 
+  <section id="wallet" class="panel">
 
-<button
-id="addWalletSpend"
-class="primary"
-style="width:100%;margin-top:10px;">
 
-Add Spending
+    <!-- ADD SPENDING -->
 
-</button>
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Add Spending
+      </div>
 
 
+      <div class="row">
 
-<!-- 2 CURRENT BALANCE -->
+        <div class="field">
 
-<div class="card">
+          <label>
+            Payment Method
+          </label>
 
-<div class="section-title">
-Current Fund Balance
-</div>
+          <select id="walletMethod">
 
-<div class="summary">
+            <option value="cash">
+              Cash
+            </option>
 
-<div class="metric">
+            <option value="icoca">
+              ICOCA
+            </option>
 
-<div class="k">
-Cash Remaining
-</div>
+            <option value="card">
+              Card
+            </option>
 
-<div
-id="cashRemaining"
-class="v">
+          </select>
 
-¥0
+        </div>
 
-</div>
 
-</div>
+        <div
+          id="walletCurrencyField"
+          class="field hidden">
 
+          <label>
+            Payment Currency
+          </label>
 
-<div class="metric">
+          <select id="walletCurrency">
 
-<div class="k">
-ICOCA Remaining
-</div>
+            <option value="JPY">
+              JPY ¥
+            </option>
 
-<div
-id="icocaRemaining"
-class="v">
+            <option value="MYR">
+              MYR RM
+            </option>
 
-¥0
+          </select>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
 
-<div class="metric">
+      <div
+        class="row"
+        style="margin-top:10px;">
 
-<div class="k">
-Card Budget Remaining
-</div>
+        <div class="field">
 
-<div
-id="cardRemaining"
-class="v">
+          <label id="walletAmountLabel">
+            Amount ¥
+          </label>
 
-RM 0.00
+          <input
+            id="walletAmount"
+            type="number"
+            inputmode="decimal"
+            placeholder="100">
 
-</div>
+        </div>
 
-</div>
 
+        <div class="field">
 
-<div class="metric">
+          <label>
+            Type
+          </label>
 
-<div class="k">
-Added Funds Equivalent
-</div>
+          <select id="walletCalcType">
 
-<div
-id="walletAddedMYR"
-class="v">
+            <option value="total">
+              Total
+            </option>
 
-RM 0.00
+            <option value="perPerson">
+              Per Person
+            </option>
 
-</div>
+          </select>
 
-</div>
+        </div>
 
+      </div>
 
-<div class="metric">
 
-<div class="k">
-Total Spent Equivalent
-</div>
+      <div
+        id="walletQtyRow"
+        class="row hidden"
+        style="margin-top:10px;">
 
-<div
-id="walletSpentMYR"
-class="v">
+        <div class="field">
 
-RM 0.00
+          <label>
+            Qty
+          </label>
 
-</div>
+          <select id="walletQty">
 
-</div>
+            <option value="1">×1</option>
+            <option value="2">×2</option>
+            <option value="3">×3</option>
+            <option value="4">×4</option>
+            <option value="5">×5</option>
+            <option value="6">×6</option>
+            <option value="7">×7</option>
+            <option value="8">×8</option>
+            <option value="9">×9</option>
 
-</div>
+          </select>
 
-</div>
+        </div>
 
 
+        <div class="field">
 
-<!-- 3 STARTING FUND -->
+          <label>
+            Calculated Total
+          </label>
 
-<div class="card">
+          <div
+            id="walletTotalPreview"
+            style="font-size:18px;font-weight:900;min-height:24px;">
 
-<div class="section-title">
-Starting Travel Funds
-</div>
+            ¥0
 
-<div class="row3">
+          </div>
 
-<div class="field">
+        </div>
 
-<label>
-Cash ¥
-</label>
+      </div>
 
-<input
-id="startCash"
-type="number"
-placeholder="100000">
 
-</div>
+      <div
+        id="walletSimpleTotal"
+        class="calc-preview">
 
+        Total Spending:
 
-<div class="field">
+        <strong id="walletSimpleTotalValue">
+          ¥0
+        </strong>
 
-<label>
-ICOCA ¥
-</label>
+      </div>
 
-<input
-id="startIcoca"
-type="number"
-placeholder="2000">
 
-</div>
+      <div
+        class="field"
+        style="margin-top:10px;">
 
+        <label>
+          Description
+        </label>
 
-<div class="field">
+        <input
+          id="walletDesc"
+          type="text"
+          placeholder="Lunch / taxi / ticket">
 
-<label>
-Card Budget
-</label>
+      </div>
 
-<div class="moneyline">
 
-<select id="cardBudgetCurrency">
+      <button
+        id="addWalletSpend"
+        class="primary"
+        style="width:100%;margin-top:10px;">
 
-<option value="JPY">
-JPY ¥
-</option>
+        Add Spending
 
-<option value="MYR">
-MYR RM
-</option>
+      </button>
 
-</select>
 
+      <div
+        id="walletSpendNote"
+        class="note">
 
-<input
-id="startCard"
-type="number"
-placeholder="2000">
+        Cash and ICOCA amounts are entered in JPY.
 
-</div>
+      </div>
 
-<div
-id="cardBudgetEquivalent"
-class="small">
+    </div>
 
-Equivalent: RM 0.00
 
-</div>
+    <!-- CURRENT FUND BALANCE -->
 
-</div>
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Current Fund Balance
+      </div>
 
+      <div class="summary">
 
-<button
-id="saveFunds"
-class="primary"
-style="width:100%;margin-top:10px;">
+        <div class="metric">
 
-Save Starting Funds
+          <div class="k">
+            Cash Remaining
+          </div>
 
-</button>
+          <div
+            id="cashRemaining"
+            class="v">
 
-</div>
+            ¥0
 
+          </div>
 
+        </div>
 
-<!-- 4 ADD FUND -->
 
-<div class="card">
+        <div class="metric">
 
-<div class="section-title">
-Add Funds / Top-up
-</div>
+          <div class="k">
+            ICOCA Remaining
+          </div>
 
+          <div
+            id="icocaRemaining"
+            class="v">
 
-<div class="row">
+            ¥0
 
-<div class="field">
+          </div>
 
-<label>
-Date
-</label>
+        </div>
 
-<input
-id="fundDate"
-type="date">
 
-</div>
+        <div class="metric">
 
+          <div class="k">
+            Card Budget Remaining
+          </div>
 
-<div class="field">
+          <div
+            id="cardRemaining"
+            class="v">
 
-<label>
-Fund Type
-</label>
+            RM 0.00
 
-<select id="fundMethod">
+          </div>
 
-<option value="cash">
-Cash
-</option>
+        </div>
 
-<option value="icoca">
-ICOCA
-</option>
 
-<option value="card">
-Card
-</option>
+        <div class="metric">
 
-</select>
+          <div class="k">
+            Added Funds Equivalent
+          </div>
 
-</div>
+          <div
+            id="walletAddedMYR"
+            class="v">
 
-</div>
+            RM 0.00
 
+          </div>
 
-<div
-class="row"
-style="margin-top:10px;">
+        </div>
 
-<div
-id="fundCurrencyField"
-class="field hidden">
 
-<label>
-Currency
-</label>
+        <div class="metric">
 
-<select id="fundCurrency">
+          <div class="k">
+            Total Spent Equivalent
+          </div>
 
-<option value="JPY">
-JPY ¥
-</option>
+          <div
+            id="walletSpentMYR"
+            class="v">
 
-<option value="MYR">
-MYR RM
-</option>
+            RM 0.00
 
-</select>
+          </div>
 
-</div>
+        </div>
 
+      </div>
 
-<div class="field">
+    </div>
 
-<label id="fundAmountLabel">
-Amount ¥
-</label>
 
-<input
-id="fundAmount"
-type="number"
-placeholder="3000">
+    <!-- STARTING TRAVEL FUNDS -->
 
-</div>
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Starting Travel Funds
+      </div>
 
+      <div class="row3">
 
-<div
-class="field"
-style="margin-top:10px;">
+        <div class="field">
 
-<label>
-Note
-</label>
+          <label>
+            Cash ¥
+          </label>
 
-<input
-id="fundNote"
-type="text"
-placeholder="ICOCA top-up / extra cash / add card budget">
+          <input
+            id="startCash"
+            type="number"
+            inputmode="decimal"
+            placeholder="100000">
 
-</div>
+        </div>
 
 
-<button
-id="addFund"
-class="primary"
-style="width:100%;margin-top:10px;">
+        <div class="field">
 
-Save Add-on Fund
+          <label>
+            ICOCA ¥
+          </label>
 
-</button>
+          <input
+            id="startIcoca"
+            type="number"
+            inputmode="decimal"
+            placeholder="2000">
 
-</div>
+        </div>
 
 
+        <div class="field">
 
-<!-- 5 FUND HISTORY -->
+          <label>
+            Card Budget
+          </label>
 
-<div class="card">
+          <div class="moneyline">
 
-<div class="section-title">
-Fund History
-</div>
+            <select id="cardBudgetCurrency">
 
-<div id="fundList">
+              <option value="JPY">
+                JPY ¥
+              </option>
 
-<div class="note">
-No add-on funds recorded.
-</div>
+              <option value="MYR">
+                MYR RM
+              </option>
 
-</div>
+            </select>
 
 
-<button
-id="clearFunds"
-class="danger"
-style="width:100%;margin-top:8px;">
+            <input
+              id="startCard"
+              type="number"
+              inputmode="decimal"
+              placeholder="2000">
 
-Clear Add-on Fund History
+          </div>
 
-</button>
 
-</div>
+          <div
+            id="cardBudgetEquivalent"
+            class="small">
 
+            Equivalent: RM 0.00
 
+          </div>
 
-<!-- 6 SPENDING HISTORY -->
+        </div>
 
-<div class="card">
+      </div>
 
-<div class="section-title">
-Spending Transactions
-</div>
 
-<div id="walletList">
+      <button
+        id="saveFunds"
+        class="primary"
+        style="width:100%;margin-top:10px;">
 
-<div class="note">
-No spending recorded.
-</div>
+        Save Starting Funds
 
-</div>
+      </button>
 
+    </div>
 
-<button
-id="clearWallet"
-class="danger"
-style="width:100%;margin-top:8px;">
 
-Clear Spending History
+    <!-- ADD FUNDS -->
 
-</button>
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Add Funds / Top-up
+      </div>
 
-</section>
 
+      <div class="row">
 
+        <div class="field">
 
-<!-- DAILY -->
+          <label>
+            Date
+          </label>
 
-<section id="daily" class="panel">
+          <input
+            id="fundDate"
+            type="date">
 
-<div class="card">
+        </div>
 
-<div class="section-title">
-Add Daily Expense
-</div>
 
-<div class="row">
+        <div class="field">
 
-<div class="field">
+          <label>
+            Fund Type
+          </label>
 
-<label>
-Date
-</label>
+          <select id="fundMethod">
 
-<input
-id="dailyDate"
-type="date">
+            <option value="cash">
+              Cash
+            </option>
 
-</div>
+            <option value="icoca">
+              ICOCA
+            </option>
 
+            <option value="card">
+              Card
+            </option>
 
-<div class="field">
+          </select>
 
-<label>
-Category
-</label>
+        </div>
 
-<select id="dailyCat">
+      </div>
 
-<option>
-Transport
-</option>
 
-<option>
-Meal
-</option>
+      <div
+        class="row"
+        style="margin-top:10px;">
 
-<option>
-Shopping
-</option>
+        <div
+          id="fundCurrencyField"
+          class="field hidden">
 
-<option>
-Attraction
-</option>
+          <label>
+            Currency
+          </label>
 
-<option>
-Hotel Tax
-</option>
+          <select id="fundCurrency">
 
-<option>
-ICOCA Top-up
-</option>
+            <option value="JPY">
+              JPY ¥
+            </option>
 
-<option>
-Other
-</option>
+            <option value="MYR">
+              MYR RM
+            </option>
 
-</select>
+          </select>
 
-</div>
+        </div>
 
-</div>
 
+        <div class="field">
 
-<div
-class="row"
-style="margin-top:10px;">
+          <label id="fundAmountLabel">
+            Amount ¥
+          </label>
 
-<div class="field">
+          <input
+            id="fundAmount"
+            type="number"
+            inputmode="decimal"
+            placeholder="3000">
 
-<label>
-Amount ¥
-</label>
+        </div>
 
-<input
-id="dailyAmount"
-type="number"
-placeholder="3000">
+      </div>
 
-</div>
 
+      <div
+        class="field"
+        style="margin-top:10px;">
 
-<div class="field">
+        <label>
+          Note
+        </label>
 
-<label>
-Note
-</label>
+        <input
+          id="fundNote"
+          type="text"
+          placeholder="ICOCA top-up / extra cash / add card budget">
 
-<input
-id="dailyNote"
-type="text"
-placeholder="Dinner / taxi / ticket">
+      </div>
 
-</div>
 
-</div>
+      <button
+        id="addFund"
+        class="primary"
+        style="width:100%;margin-top:10px;">
 
+        Save Add-on Fund
 
-<button
-id="addDaily"
-class="primary"
-style="width:100%;margin-top:10px;">
+      </button>
 
-Add Daily Expense
 
-</button>
+      <div class="note">
 
-</div>
+        Cash and ICOCA add-ons are recorded in JPY.
+        Card add-ons can be recorded in JPY or MYR.
 
+      </div>
 
+    </div>
 
-<div class="card">
 
-<div class="section-title">
-Total Spending Summary
-</div>
+    <!-- FUND HISTORY -->
 
-<div class="summary">
+    <div class="card">
 
-<div class="metric">
+      <div class="section-title">
+        Fund History
+      </div>
 
-<div class="k">
-Total JPY
-</div>
+      <div id="fundList">
 
-<div
-id="dailyTotalJPY"
-class="v">
+        <div class="note">
+          No add-on funds recorded.
+        </div>
 
-¥0
+      </div>
 
-</div>
 
-</div>
+      <button
+        id="clearFunds"
+        class="danger"
+        style="width:100%;margin-top:8px;">
 
+        Clear Add-on Fund History
 
-<div class="metric">
+      </button>
 
-<div class="k">
-Total MYR
-</div>
+    </div>
 
-<div
-id="dailyTotalMYR"
-class="v">
 
-RM 0.00
+    <!-- SPENDING TRANSACTIONS -->
 
-</div>
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Spending Transactions
+      </div>
 
+      <div id="walletList">
 
-<div class="metric">
+        <div class="note">
+          No spending recorded.
+        </div>
 
-<div class="k">
-Average / Day
-</div>
+      </div>
 
-<div
-id="dailyAvgJPY"
-class="v">
 
-¥0
+      <button
+        id="clearWallet"
+        class="danger"
+        style="width:100%;margin-top:8px;">
 
-</div>
+        Clear Spending History
 
-</div>
+      </button>
 
+    </div>
 
-<div class="metric">
+  </section>
 
-<div class="k">
-Average / Person
-</div>
 
-<div
-id="dailyAvgPP"
-class="v">
+  <!-- DAILY -->
 
-¥0
+  <section id="daily" class="panel">
 
-</div>
+    <div class="card">
 
-</div>
+      <div class="section-title">
+        Add Daily Expense
+      </div>
 
-</div>
+      <div class="row">
 
-</div>
+        <div class="field">
 
+          <label>
+            Date
+          </label>
 
+          <input
+            id="dailyDate"
+            type="date">
 
-<div class="card">
+        </div>
 
-<div class="section-title">
-Expense Log
-</div>
 
-<div id="dailyList">
+        <div class="field">
 
-<div class="note">
-No expenses recorded.
-</div>
+          <label>
+            Category
+          </label>
 
-</div>
+          <select id="dailyCat">
 
+            <option>
+              Transport
+            </option>
 
-<button
-id="clearDaily"
-class="danger"
-style="width:100%;margin-top:8px;">
+            <option>
+              Meal
+            </option>
 
-Clear Daily Log
+            <option>
+              Shopping
+            </option>
 
-</button>
+            <option>
+              Attraction
+            </option>
 
-</div>
+            <option>
+              Hotel Tax
+            </option>
 
-</section>
+            <option>
+              ICOCA Top-up
+            </option>
 
+            <option>
+              Other
+            </option>
 
-<div class="footer">
+          </select>
 
-Uses your own exchange rate, not a live FX rate.
-Data is saved locally on your device/browser.
+        </div>
 
-</div>
+      </div>
 
-</div>
+
+      <div
+        class="row"
+        style="margin-top:10px;">
+
+        <div class="field">
+
+          <label>
+            Amount ¥
+          </label>
+
+          <input
+            id="dailyAmount"
+            type="number"
+            inputmode="decimal"
+            placeholder="3000">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Note
+          </label>
+
+          <input
+            id="dailyNote"
+            type="text"
+            placeholder="Dinner / taxi / ticket">
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="addDaily"
+        class="primary"
+        style="width:100%;margin-top:10px;">
+
+        Add Daily Expense
+
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="section-title">
+        Total Spending Summary
+      </div>
+
+      <div class="summary">
+
+        <div class="metric">
+
+          <div class="k">
+            Total JPY
+          </div>
 
+          <div
+            id="dailyTotalJPY"
+            class="v">
+
+            ¥0
+
+          </div>
+
+        </div>
+
+
+        <div class="metric">
+
+          <div class="k">
+            Total MYR
+          </div>
+
+          <div
+            id="dailyTotalMYR"
+            class="v">
+
+            RM 0.00
+
+          </div>
+
+        </div>
+
+
+        <div class="metric">
+
+          <div class="k">
+            Average / Day
+          </div>
+
+          <div
+            id="dailyAvgJPY"
+            class="v">
+
+            ¥0
+
+          </div>
+
+        </div>
+
+
+        <div class="metric">
+
+          <div class="k">
+            Average / Person
+          </div>
+
+          <div
+            id="dailyAvgPP"
+            class="v">
+
+            ¥0
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="section-title">
+        Expense Log
+      </div>
+
+      <div id="dailyList">
+
+        <div class="note">
+          No expenses recorded.
+        </div>
+
+      </div>
+
+
+      <button
+        id="clearDaily"
+        class="danger"
+        style="width:100%;margin-top:8px;">
+
+        Clear Daily Log
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <div class="footer">
+
+    Uses your own exchange rate, not a live FX rate.
+    Data is saved locally on your device/browser.
+
+  </div>
+
+</div>
 
 
 <script>
@@ -1321,15 +1545,23 @@ Data is saved locally on your device/browser.
 const DEFAULT_RATE = 26.30;
 
 
-const fmtJPY = n =>
+const fmtJPY =
+  n =>
   '¥' +
-  Math.round(Number(n)||0)
-  .toLocaleString('en-US');
+  Math.round(
+    Number(n) || 0
+  )
+  .toLocaleString(
+    'en-US'
+  );
 
 
-const fmtMYR = n =>
+const fmtMYR =
+  n =>
   'RM ' +
-  (Number(n)||0)
+  (
+    Number(n) || 0
+  )
   .toLocaleString(
     'en-MY',
     {
@@ -1339,31 +1571,52 @@ const fmtMYR = n =>
   );
 
 
+const fmtCurrency =
+  (
+    amount,
+    currency
+  ) =>
+  currency === 'JPY'
+  ?
+  fmtJPY(
+    amount
+  )
+  :
+  fmtMYR(
+    amount
+  );
+
+
 const state = {
 
   walletTx:
     JSON.parse(
       localStorage.getItem(
         'japanWalletTx'
-      ) || '[]'
+      )
+      ||
+      '[]'
     ),
 
   fundTx:
     JSON.parse(
       localStorage.getItem(
         'japanFundTx'
-      ) || '[]'
+      )
+      ||
+      '[]'
     ),
 
   dailyTx:
     JSON.parse(
       localStorage.getItem(
         'japanDailyTx'
-      ) || '[]'
+      )
+      ||
+      '[]'
     )
 
 };
-
 
 
 function getRate(){
@@ -1377,45 +1630,47 @@ function getRate(){
       .value
     );
 
-  return v>0
-    ? v
-    : DEFAULT_RATE;
+
+  return (
+    !isNaN(v) &&
+    v > 0
+  )
+  ?
+  v
+  :
+  DEFAULT_RATE;
 
 }
 
 
-
-function jpyToMyr(jpy){
-
-  return jpy *
-    getRate() /
-    1000;
-
-}
-
-
-
-function myrToJpy(myr){
-
-  return myr *
-    1000 /
-    getRate();
-
-}
-
-
-
-function fmtCurrency(
-  amount,
-  currency
+function jpyToMyr(
+  jpy
 ){
 
-  return currency === 'JPY'
-    ? fmtJPY(amount)
-    : fmtMYR(amount);
+  return (
+    Number(jpy) || 0
+  )
+  *
+  getRate()
+  /
+  1000;
 
 }
 
+
+function myrToJpy(
+  myr
+){
+
+  return (
+    Number(myr) || 0
+  )
+  *
+  1000
+  /
+  getRate();
+
+}
 
 
 function convertCurrency(
@@ -1424,163 +1679,308 @@ function convertCurrency(
   to
 ){
 
-  if(from === to)
-    return Number(amount)||0;
+  const n =
+    Number(amount) || 0;
 
-  return from === 'JPY'
-    ? jpyToMyr(amount)
-    : myrToJpy(amount);
+
+  if(
+    from === to
+  ){
+
+    return n;
+
+  }
+
+
+  return (
+    from === 'JPY'
+  )
+  ?
+  jpyToMyr(
+    n
+  )
+  :
+  myrToJpy(
+    n
+  );
 
 }
 
 
+function valueInMYR(
+  amount,
+  currency
+){
 
-function today(){
+  return (
+    currency === 'JPY'
+  )
+  ?
+  jpyToMyr(
+    amount
+  )
+  :
+  (
+    Number(amount) || 0
+  );
 
-  return new Date()
+}
+
+
+function localDateString(){
+
+  const d =
+    new Date();
+
+
+  const offset =
+    d.getTimezoneOffset();
+
+
+  return new Date(
+    d.getTime()
+    -
+    offset * 60000
+  )
   .toISOString()
-  .slice(0,10);
+  .slice(
+    0,
+    10
+  );
 
 }
 
 
+function escapeHtml(
+  s
+){
 
-/* TAB CONTROL */
+  return String(
+    s || ''
+  )
+  .replace(
+    /[&<>"']/g,
+    m => (
+      {
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[m]
+    )
+  );
 
-document
-.querySelectorAll('.tab')
-.forEach(btn=>{
+}
 
-  btn.addEventListener(
-    'click',
-    ()=>{
 
-      document
-      .querySelectorAll('.tab')
-      .forEach(
-        x =>
-        x.classList
-        .remove('active')
-      );
+function savePrefs(){
 
-      document
-      .querySelectorAll('.panel')
-      .forEach(
-        x =>
-        x.classList
-        .remove('active')
-      );
+  localStorage
+  .setItem(
+    'japanRate',
+    getRate()
+  );
 
-      btn
-      .classList
-      .add('active');
 
-      document
-      .getElementById(
-        btn.dataset.panel
+  localStorage
+  .setItem(
+    'japanGroupSize',
+    document
+    .getElementById(
+      'groupSize'
+    )
+    .value
+    ||
+    4
+  );
+
+}
+
+
+(function loadPrefs(){
+
+  const r =
+    parseFloat(
+      localStorage
+      .getItem(
+        'japanRate'
       )
-      .classList
-      .add('active');
+    );
+
+
+  if(
+    !isNaN(r) &&
+    r > 0
+  ){
+
+    document
+    .getElementById(
+      'rate'
+    )
+    .value =
+      r.toFixed(
+        2
+      );
+
+  }
+
+
+  const g =
+    parseInt(
+      localStorage
+      .getItem(
+        'japanGroupSize'
+      )
+    );
+
+
+  if(
+    g > 0
+  ){
+
+    document
+    .getElementById(
+      'groupSize'
+    )
+    .value =
+      g;
+
+
+    document
+    .getElementById(
+      'splitPeople'
+    )
+    .value =
+      g;
+
+  }
+
+
+  [
+    'startCash',
+    'startIcoca',
+    'startCard'
+  ]
+  .forEach(
+    id => {
+
+      const v =
+        localStorage
+        .getItem(
+          id
+        );
+
+
+      if(
+        v !== null
+      ){
+
+        document
+        .getElementById(
+          id
+        )
+        .value =
+          v;
+
+      }
 
     }
   );
 
-});
-
-
-
-/* LOAD SAVED DATA */
-
-const savedRate =
-  localStorage
-  .getItem(
-    'japanRate'
-  );
-
-if(savedRate){
 
   document
   .getElementById(
-    'rate'
+    'cardBudgetCurrency'
   )
   .value =
-    savedRate;
-
-}
-
-
-const savedGroup =
-  localStorage
-  .getItem(
-    'japanGroup'
-  );
-
-if(savedGroup){
-
-  document
-  .getElementById(
-    'groupSize'
-  )
-  .value =
-    savedGroup;
-
-  document
-  .getElementById(
-    'splitPeople'
-  )
-  .value =
-    savedGroup;
-
-}
-
-
-[
-  'startCash',
-  'startIcoca',
-  'startCard'
-]
-.forEach(id=>{
-
-  const v =
     localStorage
-    .getItem(id);
+    .getItem(
+      'cardBudgetCurrency'
+    )
+    ||
+    'MYR';
 
-  if(v!==null){
-
-    document
-    .getElementById(id)
-    .value =
-      v;
-
-  }
-
-});
+})();
 
 
 document
-.getElementById(
-  'cardBudgetCurrency'
+.querySelectorAll(
+  '.tab'
 )
-.value =
-  localStorage
-  .getItem(
-    'cardBudgetCurrency'
-  ) || 'MYR';
+.forEach(
+  btn => {
+
+    btn
+    .addEventListener(
+      'click',
+      () => {
+
+        document
+        .querySelectorAll(
+          '.tab'
+        )
+        .forEach(
+          b =>
+          b
+          .classList
+          .remove(
+            'active'
+          )
+        );
 
 
+        document
+        .querySelectorAll(
+          '.panel'
+        )
+        .forEach(
+          p =>
+          p
+          .classList
+          .remove(
+            'active'
+          )
+        );
 
-/* CONVERT */
+
+        btn
+        .classList
+        .add(
+          'active'
+        );
+
+
+        document
+        .getElementById(
+          btn
+          .dataset
+          .panel
+        )
+        .classList
+        .add(
+          'active'
+        );
+
+      }
+    );
+
+  }
+);
+
 
 function updateConvert(){
 
   const j =
-    Number(
+    parseFloat(
       document
       .getElementById(
         'convJPY'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
 
 
   document
@@ -1589,7 +1989,9 @@ function updateConvert(){
   )
   .textContent =
     fmtMYR(
-      jpyToMyr(j)
+      jpyToMyr(
+        j
+      )
     );
 
 
@@ -1602,13 +2004,15 @@ function updateConvert(){
 
 
   const m =
-    Number(
+    parseFloat(
       document
       .getElementById(
         'convMYRInput'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
 
 
   document
@@ -1617,7 +2021,9 @@ function updateConvert(){
   )
   .textContent =
     fmtJPY(
-      myrToJpy(m)
+      myrToJpy(
+        m
+      )
     );
 
 
@@ -1631,44 +2037,27 @@ function updateConvert(){
 }
 
 
-
-document
-.getElementById(
+[
+  'convJPY',
+  'convMYRInput',
   'rate'
-)
-.addEventListener(
-  'input',
-  ()=>{
+]
+.forEach(
+  id =>
+  document
+  .getElementById(
+    id
+  )
+  .addEventListener(
+    'input',
+    () => {
 
-    localStorage
-    .setItem(
-      'japanRate',
-      getRate()
-    );
+      savePrefs();
 
-    updateEverything();
+      updateAll();
 
-  }
-);
-
-
-document
-.getElementById(
-  'convJPY'
-)
-.addEventListener(
-  'input',
-  updateConvert
-);
-
-
-document
-.getElementById(
-  'convMYRInput'
-)
-.addEventListener(
-  'input',
-  updateConvert
+    }
+  )
 );
 
 
@@ -1676,29 +2065,29 @@ document
 .querySelectorAll(
   '[data-q]'
 )
-.forEach(btn=>{
-
-  btn.addEventListener(
+.forEach(
+  b =>
+  b
+  .addEventListener(
     'click',
-    ()=>{
+    () => {
 
       document
       .getElementById(
         'convJPY'
       )
       .value =
-        btn.dataset.q;
+        b
+        .dataset
+        .q;
+
 
       updateConvert();
 
     }
-  );
+  )
+);
 
-});
-
-
-
-/* GROUP */
 
 document
 .getElementById(
@@ -1706,21 +2095,28 @@ document
 )
 .addEventListener(
   'input',
-  ()=>{
+  () => {
 
-    const g =
-      document
-      .getElementById(
-        'groupSize'
+    let g =
+      parseInt(
+        document
+        .getElementById(
+          'groupSize'
+        )
+        .value
       )
-      .value || 4;
+      ||
+      4;
 
 
-    localStorage
-    .setItem(
-      'japanGroup',
-      g
-    );
+    g =
+      Math.min(
+        9,
+        Math.max(
+          1,
+          g
+        )
+      );
 
 
     document
@@ -1731,7 +2127,33 @@ document
       g;
 
 
+    savePrefs();
+
+
+    if(
+      document
+      .getElementById(
+        'walletCalcType'
+      )
+      .value ===
+      'perPerson'
+    ){
+
+      document
+      .getElementById(
+        'walletQty'
+      )
+      .value =
+        String(
+          g
+        );
+
+    }
+
+
     updateSplit();
+
+    updateWalletSpendUI();
 
     updateDaily();
 
@@ -1739,37 +2161,65 @@ document
 );
 
 
+document
+.getElementById(
+  'resetRate'
+)
+.addEventListener(
+  'click',
+  () => {
 
-/* SPLIT */
+    document
+    .getElementById(
+      'rate'
+    )
+    .value =
+      DEFAULT_RATE
+      .toFixed(
+        2
+      );
+
+
+    savePrefs();
+
+    updateAll();
+
+  }
+);
+
 
 function updateSplit(){
 
-  const amount =
-    Number(
+  const amt =
+    parseFloat(
       document
       .getElementById(
         'splitAmount'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
 
 
-  const people =
+  const ppl =
     Math.max(
       1,
-      Number(
+      parseInt(
         document
         .getElementById(
           'splitPeople'
         )
         .value
-      ) || 1
+      )
+      ||
+      1
     );
 
 
   const each =
-    amount /
-    people;
+    amt /
+    ppl;
 
 
   document
@@ -1787,77 +2237,76 @@ function updateSplit(){
   .textContent =
     `${fmtMYR(jpyToMyr(each))} / person`;
 
-}
 
-
-document
-.getElementById(
-  'splitAmount'
-)
-.addEventListener(
-  'input',
-  updateSplit
-);
-
-
-document
-.getElementById(
-  'splitPeople'
-)
-.addEventListener(
-  'input',
-  updateSplit
-);
-
-
-
-/* STARTING FUNDS */
-
-document
-.getElementById(
-  'saveFunds'
-)
-.addEventListener(
-  'click',
-  ()=>{
-
-    [
-      'startCash',
-      'startIcoca',
-      'startCard'
-    ]
-    .forEach(id=>{
-
-      localStorage
-      .setItem(
-        id,
-        document
-        .getElementById(id)
-        .value || 0
-      );
-
-    });
-
-
-    localStorage
-    .setItem(
-      'cardBudgetCurrency',
+  const pp =
+    parseFloat(
       document
       .getElementById(
-        'cardBudgetCurrency'
+        'ppAmount'
       )
       .value
+    )
+    ||
+    0;
+
+
+  const group =
+    Math.max(
+      1,
+      parseInt(
+        document
+        .getElementById(
+          'groupSize'
+        )
+        .value
+      )
+      ||
+      4
     );
 
 
-    updateWallet();
+  const total =
+    pp *
+    group;
 
-  }
+
+  document
+  .getElementById(
+    'familyJPY'
+  )
+  .textContent =
+    `${fmtJPY(total)} total`;
+
+
+  document
+  .getElementById(
+    'familyMYR'
+  )
+  .textContent =
+    `${fmtMYR(jpyToMyr(total))} total`;
+
+}
+
+
+[
+  'splitAmount',
+  'splitPeople',
+  'ppAmount'
+]
+.forEach(
+  id =>
+  document
+  .getElementById(
+    id
+  )
+  .addEventListener(
+    'input',
+    updateSplit
+  )
 );
 
 
-
-function updateCardEquivalent(){
+function updateCardBudgetEquivalent(){
 
   const currency =
     document
@@ -1867,14 +2316,35 @@ function updateCardEquivalent(){
     .value;
 
 
-  const value =
-    Number(
+  const amount =
+    parseFloat(
       document
       .getElementById(
         'startCard'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
+
+
+  const eq =
+    (
+      currency ===
+      'JPY'
+    )
+    ?
+    fmtMYR(
+      jpyToMyr(
+        amount
+      )
+    )
+    :
+    fmtJPY(
+      myrToJpy(
+        amount
+      )
+    );
 
 
   document
@@ -1882,14 +2352,17 @@ function updateCardEquivalent(){
     'cardBudgetEquivalent'
   )
   .textContent =
-
-    currency === 'JPY'
-
-    ? `Equivalent: ${fmtMYR(jpyToMyr(value))}`
-
-    : `Equivalent: ${fmtJPY(myrToJpy(value))}`;
+    `Equivalent: ${eq}`;
 
 }
+
+
+let previousCardBudgetCurrency =
+  document
+  .getElementById(
+    'cardBudgetCurrency'
+  )
+  .value;
 
 
 document
@@ -1898,20 +2371,109 @@ document
 )
 .addEventListener(
   'change',
-  ()=>{
+  () => {
 
-    localStorage
-    .setItem(
-      'cardBudgetCurrency',
+    const next =
       document
       .getElementById(
         'cardBudgetCurrency'
       )
-      .value
+      .value;
+
+
+    const input =
+      document
+      .getElementById(
+        'startCard'
+      );
+
+
+    const current =
+      parseFloat(
+        input
+        .value
+      );
+
+
+    if(
+      !isNaN(
+        current
+      )
+      &&
+      current > 0
+      &&
+      previousCardBudgetCurrency !== next
+    ){
+
+      const converted =
+        convertCurrency(
+          current,
+          previousCardBudgetCurrency,
+          next
+        );
+
+
+      input
+      .value =
+        (
+          next ===
+          'JPY'
+        )
+        ?
+        Math.round(
+          converted
+        )
+        :
+        converted
+        .toFixed(
+          2
+        );
+
+    }
+
+
+    previousCardBudgetCurrency =
+      next;
+
+
+    localStorage
+    .setItem(
+      'cardBudgetCurrency',
+      next
     );
 
 
-    updateCardEquivalent();
+    localStorage
+    .setItem(
+      'startCard',
+      input
+      .value
+      ||
+      0
+    );
+
+
+    document
+    .getElementById(
+      'walletCurrency'
+    )
+    .value =
+      next;
+
+
+    document
+    .getElementById(
+      'fundCurrency'
+    )
+    .value =
+      next;
+
+
+    updateCardBudgetEquivalent();
+
+    updateWalletSpendUI();
+
+    updateFundUI();
 
     updateWallet();
 
@@ -1925,19 +2487,54 @@ document
 )
 .addEventListener(
   'input',
-  updateCardEquivalent
+  updateCardBudgetEquivalent
 );
 
 
-
-/* ADD FUND */
-
 document
 .getElementById(
-  'fundDate'
+  'saveFunds'
 )
-.value =
-  today();
+.addEventListener(
+  'click',
+  () => {
+
+    [
+      'startCash',
+      'startIcoca',
+      'startCard'
+    ]
+    .forEach(
+      id =>
+      localStorage
+      .setItem(
+        id,
+        document
+        .getElementById(
+          id
+        )
+        .value
+        ||
+        0
+      )
+    );
+
+
+    localStorage
+    .setItem(
+      'cardBudgetCurrency',
+      document
+      .getElementById(
+        'cardBudgetCurrency'
+      )
+      .value
+    );
+
+
+    updateWallet();
+
+  }
+);
 
 
 function updateFundUI(){
@@ -1950,6 +2547,11 @@ function updateFundUI(){
     .value;
 
 
+  const isCard =
+    method ===
+    'card';
+
+
   document
   .getElementById(
     'fundCurrencyField'
@@ -1957,18 +2559,20 @@ function updateFundUI(){
   .classList
   .toggle(
     'hidden',
-    method !== 'card'
+    !isCard
   );
 
 
   const currency =
-    method === 'card'
-    ? document
-      .getElementById(
-        'fundCurrency'
-      )
-      .value
-    : 'JPY';
+    isCard
+    ?
+    document
+    .getElementById(
+      'fundCurrency'
+    )
+    .value
+    :
+    'JPY';
 
 
   document
@@ -1976,9 +2580,14 @@ function updateFundUI(){
     'fundAmountLabel'
   )
   .textContent =
-    currency === 'JPY'
-    ? 'Amount ¥'
-    : 'Amount RM';
+    (
+      currency ===
+      'JPY'
+    )
+    ?
+    'Amount ¥'
+    :
+    'Amount RM';
 
 }
 
@@ -1989,7 +2598,34 @@ document
 )
 .addEventListener(
   'change',
-  updateFundUI
+  () => {
+
+    if(
+      document
+      .getElementById(
+        'fundMethod'
+      )
+      .value ===
+      'card'
+    ){
+
+      document
+      .getElementById(
+        'fundCurrency'
+      )
+      .value =
+        document
+        .getElementById(
+          'cardBudgetCurrency'
+        )
+        .value;
+
+    }
+
+
+    updateFundUI();
+
+  }
 );
 
 
@@ -2003,6 +2639,13 @@ document
 );
 
 
+document
+.getElementById(
+  'fundDate'
+)
+.value =
+  localDateString();
+
 
 document
 .getElementById(
@@ -2010,7 +2653,7 @@ document
 )
 .addEventListener(
   'click',
-  ()=>{
+  () => {
 
     const method =
       document
@@ -2021,17 +2664,22 @@ document
 
 
     const currency =
-      method === 'card'
-      ? document
-        .getElementById(
-          'fundCurrency'
-        )
-        .value
-      : 'JPY';
+      (
+        method ===
+        'card'
+      )
+      ?
+      document
+      .getElementById(
+        'fundCurrency'
+      )
+      .value
+      :
+      'JPY';
 
 
     const amount =
-      Number(
+      parseFloat(
         document
         .getElementById(
           'fundAmount'
@@ -2040,43 +2688,70 @@ document
       );
 
 
-    if(!(amount>0))
-      return;
-
-
-    state
-    .fundTx
-    .unshift({
-
-      method,
-
-      currency,
-
-      amount,
-
-      note:
+    const note =
+      (
         document
         .getElementById(
           'fundNote'
         )
-        .value ||
-        'Added funds',
-
-      date:
-        document
-        .getElementById(
-          'fundDate'
-        )
         .value
+        ||
+        'Added funds'
+      )
+      .trim();
 
-    });
+
+    const date =
+      document
+      .getElementById(
+        'fundDate'
+      )
+      .value
+      ||
+      localDateString();
+
+
+    if(
+      !(
+        amount >
+        0
+      )
+    ){
+
+      return;
+
+    }
+
+
+    state
+    .fundTx
+    .unshift(
+      {
+
+        method,
+
+        currency,
+
+        amount,
+
+        note,
+
+        date,
+
+        ts:
+          new Date()
+          .toISOString()
+
+      }
+    );
 
 
     localStorage
     .setItem(
       'japanFundTx',
       JSON.stringify(
-        state.fundTx
+        state
+        .fundTx
       )
     );
 
@@ -2103,10 +2778,57 @@ document
 );
 
 
+function getWalletCurrency(){
 
-/* SPENDING */
+  return (
+    document
+    .getElementById(
+      'walletMethod'
+    )
+    .value ===
+    'card'
+  )
+  ?
+  document
+  .getElementById(
+    'walletCurrency'
+  )
+  .value
+  :
+  'JPY';
 
-function updateWalletUI(){
+}
+
+
+function getWalletQty(){
+
+  return (
+    document
+    .getElementById(
+      'walletCalcType'
+    )
+    .value ===
+    'perPerson'
+  )
+  ?
+  (
+    parseInt(
+      document
+      .getElementById(
+        'walletQty'
+      )
+      .value
+    )
+    ||
+    1
+  )
+  :
+  1;
+
+}
+
+
+function updateWalletSpendUI(){
 
   const method =
     document
@@ -2116,6 +2838,11 @@ function updateWalletUI(){
     .value;
 
 
+  const isCard =
+    method ===
+    'card';
+
+
   document
   .getElementById(
     'walletCurrencyField'
@@ -2123,18 +2850,12 @@ function updateWalletUI(){
   .classList
   .toggle(
     'hidden',
-    method !== 'card'
+    !isCard
   );
 
 
   const currency =
-    method === 'card'
-    ? document
-      .getElementById(
-        'walletCurrency'
-      )
-      .value
-    : 'JPY';
+    getWalletCurrency();
 
 
   document
@@ -2142,9 +2863,144 @@ function updateWalletUI(){
     'walletAmountLabel'
   )
   .textContent =
-    currency === 'JPY'
-    ? 'Amount ¥'
-    : 'Amount RM';
+    (
+      currency ===
+      'JPY'
+    )
+    ?
+    'Amount ¥'
+    :
+    'Amount RM';
+
+
+  const calcType =
+    document
+    .getElementById(
+      'walletCalcType'
+    )
+    .value;
+
+
+  const isPerPerson =
+    calcType ===
+    'perPerson';
+
+
+  document
+  .getElementById(
+    'walletQtyRow'
+  )
+  .classList
+  .toggle(
+    'hidden',
+    !isPerPerson
+  );
+
+
+  if(
+    isPerPerson
+    &&
+    !document
+    .getElementById(
+      'walletQty'
+    )
+    .value
+  ){
+
+    const group =
+      Math.min(
+        9,
+        Math.max(
+          1,
+          parseInt(
+            document
+            .getElementById(
+              'groupSize'
+            )
+            .value
+          )
+          ||
+          4
+        )
+      );
+
+
+    document
+    .getElementById(
+      'walletQty'
+    )
+    .value =
+      String(
+        group
+      );
+
+  }
+
+
+  const unit =
+    parseFloat(
+      document
+      .getElementById(
+        'walletAmount'
+      )
+      .value
+    )
+    ||
+    0;
+
+
+  const qty =
+    getWalletQty();
+
+
+  const total =
+    unit *
+    qty;
+
+
+  document
+  .getElementById(
+    'walletTotalPreview'
+  )
+  .textContent =
+    fmtCurrency(
+      total,
+      currency
+    );
+
+
+  document
+  .getElementById(
+    'walletSimpleTotalValue'
+  )
+  .textContent =
+    fmtCurrency(
+      total,
+      currency
+    );
+
+
+  document
+  .getElementById(
+    'walletSimpleTotal'
+  )
+  .classList
+  .toggle(
+    'hidden',
+    isPerPerson
+  );
+
+
+  document
+  .getElementById(
+    'walletSpendNote'
+  )
+  .textContent =
+    isCard
+    ?
+    `Card spending is recorded in ${currency}.`
+    :
+    'Cash and ICOCA amounts are entered in JPY.';
 
 }
 
@@ -2155,7 +3011,34 @@ document
 )
 .addEventListener(
   'change',
-  updateWalletUI
+  () => {
+
+    if(
+      document
+      .getElementById(
+        'walletMethod'
+      )
+      .value ===
+      'card'
+    ){
+
+      document
+      .getElementById(
+        'walletCurrency'
+      )
+      .value =
+        document
+        .getElementById(
+          'cardBudgetCurrency'
+        )
+        .value;
+
+    }
+
+
+    updateWalletSpendUI();
+
+  }
 );
 
 
@@ -2165,9 +3048,92 @@ document
 )
 .addEventListener(
   'change',
-  updateWalletUI
+  updateWalletSpendUI
 );
 
+
+document
+.getElementById(
+  'walletCalcType'
+)
+.addEventListener(
+  'change',
+  () => {
+
+    if(
+      document
+      .getElementById(
+        'walletCalcType'
+      )
+      .value ===
+      'perPerson'
+    ){
+
+      const group =
+        Math.min(
+          9,
+          Math.max(
+            1,
+            parseInt(
+              document
+              .getElementById(
+                'groupSize'
+              )
+              .value
+            )
+            ||
+            4
+          )
+        );
+
+
+      document
+      .getElementById(
+        'walletQty'
+      )
+      .value =
+        String(
+          group
+        );
+
+    }
+
+    else{
+
+      document
+      .getElementById(
+        'walletQty'
+      )
+      .value =
+        '1';
+
+    }
+
+
+    updateWalletSpendUI();
+
+  }
+);
+
+
+document
+.getElementById(
+  'walletQty'
+)
+.addEventListener(
+  'change',
+  updateWalletSpendUI
+);
+
+
+document
+.getElementById(
+  'walletAmount'
+)
+.addEventListener(
+  'input',
+  updateWalletSpendUI
+);
 
 
 document
@@ -2176,7 +3142,7 @@ document
 )
 .addEventListener(
   'click',
-  ()=>{
+  () => {
 
     const method =
       document
@@ -2187,17 +3153,11 @@ document
 
 
     const currency =
-      method === 'card'
-      ? document
-        .getElementById(
-          'walletCurrency'
-        )
-        .value
-      : 'JPY';
+      getWalletCurrency();
 
 
-    const amount =
-      Number(
+    const unitAmount =
+      parseFloat(
         document
         .getElementById(
           'walletAmount'
@@ -2206,36 +3166,89 @@ document
       );
 
 
-    if(!(amount>0))
-      return;
+    const calcType =
+      document
+      .getElementById(
+        'walletCalcType'
+      )
+      .value;
 
 
-    state
-    .walletTx
-    .unshift({
+    const qty =
+      getWalletQty();
 
-      method,
 
-      currency,
+    const amount =
+      (
+        unitAmount || 0
+      )
+      *
+      qty;
 
-      amount,
 
-      desc:
+    const desc =
+      (
         document
         .getElementById(
           'walletDesc'
         )
-        .value ||
+        .value
+        ||
         'Expense'
+      )
+      .trim();
 
-    });
+
+    if(
+      !(
+        unitAmount >
+        0
+      )
+      ||
+      !(
+        amount >
+        0
+      )
+    ){
+
+      return;
+
+    }
+
+
+    state
+    .walletTx
+    .unshift(
+      {
+
+        method,
+
+        currency,
+
+        unitAmount,
+
+        qty,
+
+        calcType,
+
+        amount,
+
+        desc,
+
+        ts:
+          new Date()
+          .toISOString()
+
+      }
+    );
 
 
     localStorage
     .setItem(
       'japanWalletTx',
       JSON.stringify(
-        state.walletTx
+        state
+        .walletTx
       )
     );
 
@@ -2256,46 +3269,53 @@ document
       '';
 
 
+    updateWalletSpendUI();
+
     updateWallet();
 
   }
 );
 
 
-
 function updateWallet(){
 
-  const startCash =
-    Number(
+  const sc =
+    parseFloat(
       document
       .getElementById(
         'startCash'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
 
 
-  const startIcoca =
-    Number(
+  const si =
+    parseFloat(
       document
       .getElementById(
         'startIcoca'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
 
 
-  const startCard =
-    Number(
+  const sCard =
+    parseFloat(
       document
       .getElementById(
         'startCard'
       )
       .value
-    ) || 0;
+    )
+    ||
+    0;
 
 
-  const cardCurrency =
+  const cardBudgetCurrency =
     document
     .getElementById(
       'cardBudgetCurrency'
@@ -2303,17 +3323,27 @@ function updateWallet(){
     .value;
 
 
-
   const cashAdded =
     state
     .fundTx
     .filter(
       x =>
-      x.method === 'cash'
+      x.method ===
+      'cash'
     )
     .reduce(
-      (a,b)=>
-      a+b.amount,
+      (
+        a,
+        b
+      ) =>
+      a +
+      (
+        Number(
+          b.amount
+        )
+        ||
+        0
+      ),
       0
     );
 
@@ -2323,11 +3353,22 @@ function updateWallet(){
     .fundTx
     .filter(
       x =>
-      x.method === 'icoca'
+      x.method ===
+      'icoca'
     )
     .reduce(
-      (a,b)=>
-      a+b.amount,
+      (
+        a,
+        b
+      ) =>
+      a +
+      (
+        Number(
+          b.amount
+        )
+        ||
+        0
+      ),
       0
     );
 
@@ -2337,21 +3378,22 @@ function updateWallet(){
     .fundTx
     .filter(
       x =>
-      x.method === 'card'
+      x.method ===
+      'card'
     )
     .reduce(
-      (a,b)=>
-
-      a+
+      (
+        a,
+        b
+      ) =>
+      a +
       convertCurrency(
         b.amount,
-        b.currency,
-        cardCurrency
+        b.currency || 'MYR',
+        cardBudgetCurrency
       ),
-
       0
     );
-
 
 
   const cashSpent =
@@ -2359,11 +3401,22 @@ function updateWallet(){
     .walletTx
     .filter(
       x =>
-      x.method === 'cash'
+      x.method ===
+      'cash'
     )
     .reduce(
-      (a,b)=>
-      a+b.amount,
+      (
+        a,
+        b
+      ) =>
+      a +
+      (
+        Number(
+          b.amount
+        )
+        ||
+        0
+      ),
       0
     );
 
@@ -2373,11 +3426,22 @@ function updateWallet(){
     .walletTx
     .filter(
       x =>
-      x.method === 'icoca'
+      x.method ===
+      'icoca'
     )
     .reduce(
-      (a,b)=>
-      a+b.amount,
+      (
+        a,
+        b
+      ) =>
+      a +
+      (
+        Number(
+          b.amount
+        )
+        ||
+        0
+      ),
       0
     );
 
@@ -2387,40 +3451,40 @@ function updateWallet(){
     .walletTx
     .filter(
       x =>
-      x.method === 'card'
+      x.method ===
+      'card'
     )
     .reduce(
-      (a,b)=>
-
-      a+
+      (
+        a,
+        b
+      ) =>
+      a +
       convertCurrency(
         b.amount,
-        b.currency,
-        cardCurrency
+        b.currency || 'MYR',
+        cardBudgetCurrency
       ),
-
       0
     );
 
 
-
-  const cashRemaining =
-    startCash +
+  const remCash =
+    sc +
     cashAdded -
     cashSpent;
 
 
-  const icocaRemaining =
-    startIcoca +
+  const remIcoca =
+    si +
     icocaAdded -
     icocaSpent;
 
 
-  const cardRemaining =
-    startCard +
+  const remCard =
+    sCard +
     cardAdded -
     cardSpent;
-
 
 
   document
@@ -2429,7 +3493,7 @@ function updateWallet(){
   )
   .textContent =
     fmtJPY(
-      cashRemaining
+      remCash
     );
 
 
@@ -2439,7 +3503,7 @@ function updateWallet(){
   )
   .textContent =
     fmtJPY(
-      icocaRemaining
+      remIcoca
     );
 
 
@@ -2449,71 +3513,109 @@ function updateWallet(){
   )
   .textContent =
     fmtCurrency(
-      cardRemaining,
-      cardCurrency
+      remCard,
+      cardBudgetCurrency
     );
 
 
+  document
+  .getElementById(
+    'cashRemaining'
+  )
+  .className =
+    'v '
+    +
+    (
+      remCash < 0
+      ?
+      'negative'
+      :
+      ''
+    );
 
-  const addedMYR =
 
+  document
+  .getElementById(
+    'icocaRemaining'
+  )
+  .className =
+    'v '
+    +
+    (
+      remIcoca < 0
+      ?
+      'negative'
+      :
+      ''
+    );
+
+
+  document
+  .getElementById(
+    'cardRemaining'
+  )
+  .className =
+    'v '
+    +
+    (
+      remCard < 0
+      ?
+      'negative'
+      :
+      ''
+    );
+
+
+  const addedEq =
     jpyToMyr(
       cashAdded +
       icocaAdded
     )
-
     +
-
     state
     .fundTx
     .filter(
       x =>
-      x.method === 'card'
+      x.method ===
+      'card'
     )
     .reduce(
-      (a,b)=>
-
-      a+
       (
-        b.currency === 'JPY'
-        ? jpyToMyr(
-            b.amount
-          )
-        : b.amount
+        a,
+        b
+      ) =>
+      a +
+      valueInMYR(
+        b.amount,
+        b.currency || 'MYR'
       ),
-
       0
     );
 
 
-
-  const spentMYR =
-
+  const spentEq =
     jpyToMyr(
       cashSpent +
       icocaSpent
     )
-
     +
-
     state
     .walletTx
     .filter(
       x =>
-      x.method === 'card'
+      x.method ===
+      'card'
     )
     .reduce(
-      (a,b)=>
-
-      a+
       (
-        b.currency === 'JPY'
-        ? jpyToMyr(
-            b.amount
-          )
-        : b.amount
+        a,
+        b
+      ) =>
+      a +
+      valueInMYR(
+        b.amount,
+        b.currency || 'MYR'
       ),
-
       0
     );
 
@@ -2524,7 +3626,7 @@ function updateWallet(){
   )
   .textContent =
     fmtMYR(
-      addedMYR
+      addedEq
     );
 
 
@@ -2534,15 +3636,11 @@ function updateWallet(){
   )
   .textContent =
     fmtMYR(
-      spentMYR
+      spentEq
     );
 
 
-
-  /* FUND HISTORY */
-
-
-  const fundList =
+  const fundBox =
     document
     .getElementById(
       'fundList'
@@ -2550,97 +3648,125 @@ function updateWallet(){
 
 
   if(
-    state
+    !state
     .fundTx
-    .length === 0
+    .length
   ){
 
-    fundList.innerHTML =
+    fundBox
+    .innerHTML =
       '<div class="note">No add-on funds recorded.</div>';
 
   }
 
   else{
 
-    fundList.innerHTML =
-
+    fundBox
+    .innerHTML =
       state
       .fundTx
       .map(
-        (x,index)=>{
+        (
+          x,
+          index
+        ) => {
 
           const currency =
-            x.method === 'card'
-            ? x.currency
-            : 'JPY';
+            (
+              x.method ===
+              'card'
+            )
+            ?
+            (
+              x.currency ||
+              'MYR'
+            )
+            :
+            'JPY';
 
 
-          const method =
-            x.method === 'icoca'
-            ? 'ICOCA'
+          const methodName =
+            (
+              x.method ===
+              'icoca'
+            )
+            ?
+            'ICOCA'
             :
             x.method
-            .charAt(0)
+            .charAt(
+              0
+            )
             .toUpperCase()
             +
             x.method
-            .slice(1);
+            .slice(
+              1
+            );
 
 
           return `
 
           <div class="list-item">
 
-          <div>
+            <div>
 
-          <div class="li-title">
+              <div class="li-title">
 
-          ${escapeHtml(
-            x.note
-          )}
+                ${escapeHtml(
+                  x.note ||
+                  'Added funds'
+                )}
 
-          </div>
+              </div>
 
-          <div class="li-sub">
+              <div class="li-sub">
 
-          ${escapeHtml(
-            x.date
-          )}
+                ${escapeHtml(
+                  x.date ||
+                  ''
+                )}
 
-          • ${method}
+                •
 
-          ${
-            x.method === 'card'
-            ? ` • ${currency}`
-            : ''
-          }
+                ${methodName}
 
-          </div>
+                ${
+                  x.method ===
+                  'card'
+                  ?
+                  ` • ${currency}`
+                  :
+                  ''
+                }
 
-          </div>
+              </div>
 
-
-          <div class="li-actions">
-
-          <div class="li-value positive">
-
-          +${fmtCurrency(
-            x.amount,
-            currency
-          )}
-
-          </div>
+            </div>
 
 
-          <button
-          class="delete-item"
-          onclick="deleteFundItem(${index})">
+            <div class="li-actions">
 
-          Delete
+              <div class="li-value positive">
 
-          </button>
+                +${fmtCurrency(
+                  x.amount,
+                  currency
+                )}
 
-          </div>
+              </div>
+
+
+              <button
+                class="delete-item"
+                type="button"
+                onclick="deleteFundItem(${index})">
+
+                Delete
+
+              </button>
+
+            </div>
 
           </div>
 
@@ -2648,16 +3774,14 @@ function updateWallet(){
 
         }
       )
-      .join('');
+      .join(
+        ''
+      );
 
   }
 
 
-
-  /* SPENDING HISTORY */
-
-
-  const walletList =
+  const box =
     document
     .getElementById(
       'walletList'
@@ -2665,81 +3789,152 @@ function updateWallet(){
 
 
   if(
-    state
+    !state
     .walletTx
-    .length === 0
+    .length
   ){
 
-    walletList.innerHTML =
+    box
+    .innerHTML =
       '<div class="note">No spending recorded.</div>';
 
   }
 
   else{
 
-    walletList.innerHTML =
-
+    box
+    .innerHTML =
       state
       .walletTx
       .map(
-        (x,index)=>{
+        (
+          x,
+          index
+        ) => {
 
           const currency =
-            x.method === 'card'
-            ? x.currency
-            : 'JPY';
+            (
+              x.method ===
+              'card'
+            )
+            ?
+            (
+              x.currency ||
+              'MYR'
+            )
+            :
+            'JPY';
+
+
+          const methodName =
+            (
+              x.method ===
+              'icoca'
+            )
+            ?
+            'ICOCA'
+            :
+            x.method
+            .toUpperCase();
+
+
+          const qty =
+            Number(
+              x.qty
+            )
+            ||
+            1;
+
+
+          const unitAmount =
+            Number(
+              x.unitAmount
+            )
+            ||
+            Number(
+              x.amount
+            )
+            ||
+            0;
+
+
+          const isPerPerson =
+            (
+              x.calcType ===
+              'perPerson'
+            )
+            ||
+            qty > 1;
+
+
+          const calcText =
+            isPerPerson
+            ?
+            ` • ${fmtCurrency(
+              unitAmount,
+              currency
+            )} × ${qty}`
+            :
+            '';
 
 
           return `
 
           <div class="list-item">
 
-          <div>
+            <div>
 
-          <div class="li-title">
+              <div class="li-title">
 
-          ${escapeHtml(
-            x.desc
-          )}
+                ${escapeHtml(
+                  x.desc
+                )}
 
-          </div>
-
-          <div class="li-sub">
-
-          ${x.method.toUpperCase()}
-
-          ${
-            x.method === 'card'
-            ? ` • ${currency}`
-            : ''
-          }
-
-          </div>
-
-          </div>
+              </div>
 
 
-          <div class="li-actions">
+              <div class="li-sub">
 
-          <div class="li-value">
+                ${methodName}
 
-          ${fmtCurrency(
-            x.amount,
-            currency
-          )}
+                ${
+                  x.method ===
+                  'card'
+                  ?
+                  ` • ${currency}`
+                  :
+                  ''
+                }
 
-          </div>
+                ${calcText}
+
+              </div>
+
+            </div>
 
 
-          <button
-          class="delete-item"
-          onclick="deleteWalletItem(${index})">
+            <div class="li-actions">
 
-          Delete
+              <div class="li-value">
 
-          </button>
+                ${fmtCurrency(
+                  x.amount,
+                  currency
+                )}
 
-          </div>
+              </div>
+
+
+              <button
+                class="delete-item"
+                type="button"
+                onclick="deleteWalletItem(${index})">
+
+                Delete
+
+              </button>
+
+            </div>
 
           </div>
 
@@ -2747,20 +3942,21 @@ function updateWallet(){
 
         }
       )
-      .join('');
+      .join(
+        ''
+      );
 
   }
 
 
-  updateCardEquivalent();
+  updateCardBudgetEquivalent();
 
 }
 
 
-
-/* DELETE FUND ITEM */
-
-function deleteFundItem(index){
+function deleteFundItem(
+  index
+){
 
   const item =
     state
@@ -2769,16 +3965,24 @@ function deleteFundItem(index){
     ];
 
 
-  if(!item)
+  if(
+    !item
+  ){
+
     return;
+
+  }
 
 
   if(
     !confirm(
       `Delete "${item.note || 'Added fund'}"?`
     )
-  )
+  ){
+
     return;
+
+  }
 
 
   state
@@ -2793,7 +3997,8 @@ function deleteFundItem(index){
   .setItem(
     'japanFundTx',
     JSON.stringify(
-      state.fundTx
+      state
+      .fundTx
     )
   );
 
@@ -2803,10 +4008,9 @@ function deleteFundItem(index){
 }
 
 
-
-/* DELETE SPENDING ITEM */
-
-function deleteWalletItem(index){
+function deleteWalletItem(
+  index
+){
 
   const item =
     state
@@ -2815,16 +4019,24 @@ function deleteWalletItem(index){
     ];
 
 
-  if(!item)
+  if(
+    !item
+  ){
+
     return;
+
+  }
 
 
   if(
     !confirm(
       `Delete "${item.desc || 'Expense'}"?`
     )
-  )
+  ){
+
     return;
+
+  }
 
 
   state
@@ -2839,7 +4051,8 @@ function deleteWalletItem(index){
   .setItem(
     'japanWalletTx',
     JSON.stringify(
-      state.walletTx
+      state
+      .walletTx
     )
   );
 
@@ -2849,21 +4062,35 @@ function deleteWalletItem(index){
 }
 
 
-
 document
 .getElementById(
   'clearFunds'
 )
 .addEventListener(
   'click',
-  ()=>{
+  () => {
 
-    state.fundTx = [];
+    if(
+      !confirm(
+        'Clear all add-on fund history?'
+      )
+    ){
+
+      return;
+
+    }
+
+
+    state
+    .fundTx =
+      [];
+
 
     localStorage
     .removeItem(
       'japanFundTx'
     );
+
 
     updateWallet();
 
@@ -2877,14 +4104,29 @@ document
 )
 .addEventListener(
   'click',
-  ()=>{
+  () => {
 
-    state.walletTx = [];
+    if(
+      !confirm(
+        'Clear all spending history?'
+      )
+    ){
+
+      return;
+
+    }
+
+
+    state
+    .walletTx =
+      [];
+
 
     localStorage
     .removeItem(
       'japanWalletTx'
     );
+
 
     updateWallet();
 
@@ -2892,15 +4134,12 @@ document
 );
 
 
-
-/* DAILY */
-
 document
 .getElementById(
   'dailyDate'
 )
 .value =
-  today();
+  localDateString();
 
 
 document
@@ -2909,10 +4148,28 @@ document
 )
 .addEventListener(
   'click',
-  ()=>{
+  () => {
+
+    const date =
+      document
+      .getElementById(
+        'dailyDate'
+      )
+      .value
+      ||
+      localDateString();
+
+
+    const cat =
+      document
+      .getElementById(
+        'dailyCat'
+      )
+      .value;
+
 
     const amount =
-      Number(
+      parseFloat(
         document
         .getElementById(
           'dailyAmount'
@@ -2921,44 +4178,55 @@ document
       );
 
 
-    if(!(amount>0))
-      return;
-
-
-    state
-    .dailyTx
-    .push({
-
-      date:
-        document
-        .getElementById(
-          'dailyDate'
-        )
-        .value,
-
-      cat:
-        document
-        .getElementById(
-          'dailyCat'
-        )
-        .value,
-
-      amount,
-
-      note:
+    const note =
+      (
         document
         .getElementById(
           'dailyNote'
         )
         .value
+        ||
+        ''
+      )
+      .trim();
 
-    });
+
+    if(
+      !(
+        amount >
+        0
+      )
+    ){
+
+      return;
+
+    }
+
+
+    state
+    .dailyTx
+    .push(
+      {
+
+        date,
+
+        cat,
+
+        amount,
+
+        note
+
+      }
+    );
 
 
     state
     .dailyTx
     .sort(
-      (a,b)=>
+      (
+        a,
+        b
+      ) =>
       b.date
       .localeCompare(
         a.date
@@ -2970,7 +4238,8 @@ document
     .setItem(
       'japanDailyTx',
       JSON.stringify(
-        state.dailyTx
+        state
+        .dailyTx
       )
     );
 
@@ -2997,20 +4266,29 @@ document
 );
 
 
-
 function updateDaily(){
 
   const total =
     state
     .dailyTx
     .reduce(
-      (a,b)=>
-      a+b.amount,
+      (
+        a,
+        b
+      ) =>
+      a +
+      (
+        Number(
+          b.amount
+        )
+        ||
+        0
+      ),
       0
     );
 
 
-  const days =
+  const uniqueDays =
     [
       ...new Set(
         state
@@ -3021,17 +4299,24 @@ function updateDaily(){
         )
       )
     ]
-    .length || 1;
+    .length
+    ||
+    1;
 
 
-  const people =
-    Number(
-      document
-      .getElementById(
-        'groupSize'
+  const group =
+    Math.max(
+      1,
+      parseInt(
+        document
+        .getElementById(
+          'groupSize'
+        )
+        .value
       )
-      .value
-    ) || 4;
+      ||
+      4
+    );
 
 
   document
@@ -3063,7 +4348,7 @@ function updateDaily(){
   .textContent =
     fmtJPY(
       total /
-      days
+      uniqueDays
     );
 
 
@@ -3074,12 +4359,11 @@ function updateDaily(){
   .textContent =
     fmtJPY(
       total /
-      people
+      group
     );
 
 
-
-  const list =
+  const box =
     document
     .getElementById(
       'dailyList'
@@ -3087,100 +4371,109 @@ function updateDaily(){
 
 
   if(
-    state
+    !state
     .dailyTx
-    .length === 0
+    .length
   ){
 
-    list.innerHTML =
+    box
+    .innerHTML =
       '<div class="note">No expenses recorded.</div>';
+
 
     return;
 
   }
 
 
-  list.innerHTML =
-
+  box
+  .innerHTML =
     state
     .dailyTx
     .map(
-      (x,index)=>`
+      (
+        x,
+        index
+      ) => `
 
       <div class="list-item">
 
-      <div>
+        <div>
 
-      <div class="li-title">
+          <div class="li-title">
 
-      ${escapeHtml(
-        x.cat
-      )}
+            ${escapeHtml(
+              x.cat
+            )}
 
-      ${
-        x.note
-        ? ` — ${escapeHtml(
-            x.note
-          )}`
-        : ''
-      }
+            ${
+              x.note
+              ?
+              ` — ${escapeHtml(
+                x.note
+              )}`
+              :
+              ''
+            }
 
-      </div>
-
-
-      <div class="li-sub">
-
-      ${escapeHtml(
-        x.date
-      )}
-
-      •
-
-      ${fmtMYR(
-        jpyToMyr(
-          x.amount
-        )
-      )}
-
-      </div>
-
-      </div>
+          </div>
 
 
-      <div class="li-actions">
+          <div class="li-sub">
 
-      <div class="li-value">
+            ${escapeHtml(
+              x.date
+            )}
 
-      ${fmtJPY(
-        x.amount
-      )}
+            •
 
-      </div>
+            ${fmtMYR(
+              jpyToMyr(
+                x.amount
+              )
+            )}
+
+          </div>
+
+        </div>
 
 
-      <button
-      class="delete-item"
-      onclick="deleteDailyItem(${index})">
+        <div class="li-actions">
 
-      Delete
+          <div class="li-value">
 
-      </button>
+            ${fmtJPY(
+              x.amount
+            )}
 
-      </div>
+          </div>
+
+
+          <button
+            class="delete-item"
+            type="button"
+            onclick="deleteDailyItem(${index})">
+
+            Delete
+
+          </button>
+
+        </div>
 
       </div>
 
       `
     )
-    .join('');
+    .join(
+      ''
+    );
 
 }
 
 
-
-/* DELETE DAILY ITEM */
-
-function deleteDailyItem(index){
+function deleteDailyItem(
+  index
+){
 
   const item =
     state
@@ -3189,16 +4482,32 @@ function deleteDailyItem(index){
     ];
 
 
-  if(!item)
+  if(
+    !item
+  ){
+
     return;
+
+  }
+
+
+  const label =
+    item.note
+    ?
+    `${item.cat} — ${item.note}`
+    :
+    item.cat;
 
 
   if(
     !confirm(
-      `Delete "${item.note || item.cat}"?`
+      `Delete "${label}"?`
     )
-  )
+  ){
+
     return;
+
+  }
 
 
   state
@@ -3213,7 +4522,8 @@ function deleteDailyItem(index){
   .setItem(
     'japanDailyTx',
     JSON.stringify(
-      state.dailyTx
+      state
+      .dailyTx
     )
   );
 
@@ -3223,21 +4533,35 @@ function deleteDailyItem(index){
 }
 
 
-
 document
 .getElementById(
   'clearDaily'
 )
 .addEventListener(
   'click',
-  ()=>{
+  () => {
 
-    state.dailyTx = [];
+    if(
+      !confirm(
+        'Clear the whole daily expense log?'
+      )
+    ){
+
+      return;
+
+    }
+
+
+    state
+    .dailyTx =
+      [];
+
 
     localStorage
     .removeItem(
       'japanDailyTx'
     );
+
 
     updateDaily();
 
@@ -3245,42 +4569,61 @@ document
 );
 
 
+document
+.getElementById(
+  'resetAll'
+)
+.addEventListener(
+  'click',
+  () => {
 
-function escapeHtml(s){
+    if(
+      !confirm(
+        'Reset all app data? This will delete saved funds and expense records on this device.'
+      )
+    ){
 
-  return String(
-    s || ''
-  )
-  .replace(
-    /[&<>"']/g,
-    m=>({
+      return;
 
-      '&':'&amp;',
-
-      '<':'&lt;',
-
-      '>':'&gt;',
-
-      '"':'&quot;',
-
-      "'":'&#039;'
-
-    }[m])
-  );
-
-}
+    }
 
 
+    [
+      'japanRate',
+      'japanGroupSize',
+      'japanWalletTx',
+      'japanFundTx',
+      'japanDailyTx',
+      'cardBudgetCurrency',
+      'startCash',
+      'startIcoca',
+      'startCard'
+    ]
+    .forEach(
+      k =>
+      localStorage
+      .removeItem(
+        k
+      )
+    );
 
-function updateEverything(){
+
+    location
+    .reload();
+
+  }
+);
+
+
+function updateAll(){
 
   updateConvert();
 
   updateSplit();
 
-  updateFundUI();
+  updateWalletSpendUI();
 
-  updateWalletUI();
+  updateFundUI();
 
   updateWallet();
 
@@ -3288,6 +4631,13 @@ function updateEverything(){
 
 }
 
+
+previousCardBudgetCurrency =
+  document
+  .getElementById(
+    'cardBudgetCurrency'
+  )
+  .value;
 
 
 document
@@ -3314,9 +4664,62 @@ document
   .value;
 
 
-updateEverything();
+const initialGroup =
+  Math.min(
+    9,
+    Math.max(
+      1,
+      parseInt(
+        document
+        .getElementById(
+          'groupSize'
+        )
+        .value
+      )
+      ||
+      4
+    )
+  );
+
+
+document
+.getElementById(
+  'walletQty'
+)
+.value =
+  String(
+    initialGroup
+  );
+
+
+updateAll();
+
+
+if(
+  'serviceWorker'
+  in navigator
+){
+
+  window
+  .addEventListener(
+    'load',
+    () => {
+
+      navigator
+      .serviceWorker
+      .register(
+        './sw.js'
+      )
+      .catch(
+        () => {}
+      );
+
+    }
+  );
+
+}
 
 </script>
 
 </body>
-</html>
+  </html>
