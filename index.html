@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#111827" />
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Japan Travel Money Calculator</title>
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --card:#fff;
+    --text:#111827;
+    --muted:#6b7280;
+    --line:#e5e7eb;
+    --soft:#f3f4f6;
+    --accent:#111827;
+    --good:#0f766e;
+    --warn:#92400e;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:16px 14px 36px}
+  .hero{
+    background:linear-gradient(180deg,#111827,#1f2937);
+    color:#fff;
+    border-radius:22px;
+    padding:20px;
+    margin-bottom:14px;
+  }
+  .hero h1{margin:0;font-size:26px;line-height:1.05}
+  .hero p{margin:8px 0 0;color:#d1d5db;font-size:13px}
+  .install-app{display:none;width:100%;margin-top:12px;background:#fff;color:#111827;border:0;border-radius:12px;padding:10px;font-weight:900}
+  .tabs{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .tab{
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    padding:10px 6px;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .tab.active{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+  .panel{display:none}
+  .panel.active{display:block}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:12px;
+    box-shadow:0 6px 18px rgba(17,24,39,.04);
+  }
+  .section-title{font-size:15px;font-weight:900;margin-bottom:10px}
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .field{
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+    background:#fff;
+  }
+  input,select{
+    width:100%;
+    border:0;
+    outline:none;
+    background:transparent;
+    font-size:18px;
+    font-weight:800;
+    color:var(--text);
+  }
+  select{font-size:15px}
+  .moneyline{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .prefix{font-weight:900;min-width:28px}
+  .result{
+    background:var(--soft);
+    border-radius:14px;
+    padding:14px;
+    margin-top:10px;
+  }
+  .big{font-size:29px;font-weight:900;letter-spacing:-.03em}
+  .small{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+  button{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+    color:var(--text);
+    padding:11px 12px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .danger{color:#991b1b}
+  .quick{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+    margin-top:10px;
+  }
+  .quick button{padding:9px 4px;font-size:12px}
+  .summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .metric{
+    background:var(--soft);
+    border-radius:14px;
+    padding:12px;
+  }
+  .metric .k{font-size:11px;color:var(--muted);font-weight:800}
+  .metric .v{font-size:20px;font-weight:900;margin-top:3px}
+  .list-item{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:12px;
+    padding:11px 0;
+    border-top:1px solid var(--line);
+    align-items:center;
+  }
+  .list-item:first-child{border-top:0}
+  .li-title{font-size:14px;font-weight:800}
+  .li-sub{font-size:11px;color:var(--muted);margin-top:3px}
+  .li-value{text-align:right;font-weight:900}
+  .actions{display:flex;gap:8px;margin-top:10px}
+  .actions button{flex:1}
+  .tag{
+    display:inline-block;
+    margin-top:8px;
+    background:#ecfdf5;
+    color:var(--good);
+    border:1px solid #ccfbf1;
+    border-radius:999px;
+    padding:5px 9px;
+    font-size:11px;
+    font-weight:900;
+  }
+  .note{
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.5;
+    margin-top:8px;
+  }
+  .negative{color:#b91c1c}
+  .positive{color:var(--good)}
+  .footer{text-align:center;color:var(--muted);font-size:10px;line-height:1.5;padding-top:6px}
+  @media(max-width:480px){
+    .tabs{grid-template-columns:repeat(2,1fr)}
+    .row,.row3,.summary{grid-template-columns:1fr}
+    .quick{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>Japan Travel Money</h1>
+    <p>JPY ↔ MYR • 4-person trip • Cash • ICOCA • Card • Daily spending</p>
+    <button id="installBtn" class="install-app">Install on Home Screen</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-panel="convert">Convert</button>
+    <button class="tab" data-panel="split">Split</button>
+    <button class="tab" data-panel="wallet">Wallet</button>
+    <button class="tab" data-panel="daily">Daily</button>
+  </div>
+
+  <!-- CONVERT -->
+  <section id="convert" class="panel active">
+    <div class="card">
+      <div class="section-title">Quick JPY → MYR</div>
+      <div class="field">
+        <label>Japanese Yen</label>
+        <div class="moneyline"><span class="prefix">¥</span><input id="convJPY" type="number" inputmode="decimal" placeholder="1000"></div>
+      </div>
+      <div class="quick">
+        <button data-q="500">¥500</button>
+        <button data-q="1000">¥1k</button>
+        <button data-q="2000">¥2k</button>
+        <button data-q="5000">¥5k</button>
+        <button data-q="10000">¥10k</button>
+      </div>
+      <div class="result">
+        <div id="convMYR" class="big">RM 0.00</div>
+        <div id="convNote" class="small"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">MYR → JPY</div>
+      <div class="field">
+        <label>Malaysian Ringgit</label>
+        <div class="moneyline"><span class="prefix">RM</span><input id="convMYRInput" type="number" inputmode="decimal" placeholder="100"></div>
+      </div>
+      <div class="result">
+        <div id="convJPYResult" class="big">¥0</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Your Exchange Rate</div>
+      <div class="row">
+        <div class="field">
+          <label>MYR per ¥1,000</label>
+          <input id="rate" type="number" step="0.01" value="26.30">
+        </div>
+        <div class="field">
+          <label>Trip Group Size</label>
+          <input id="groupSize" type="number" min="1" step="1" value="4">
+        </div>
+      </div>
+      <div id="unitRate" class="tag">¥1 = RM0.02630</div>
+      <div class="actions">
+        <button id="resetRate">Reset Rate</button>
+        <button id="resetAll" class="danger">Reset App Data</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT -->
+  <section id="split" class="panel">
+    <div class="card">
+      <div class="section-title">Split an Expense</div>
+      <div class="row">
+        <div class="field">
+          <label>Expense Amount</label>
+          <div class="moneyline"><span class="prefix">¥</span><input id="splitAmount" type="number" inputmode="decimal" placeholder="12000"></div>
+        </div>
+        <div class="field">
+          <label>Split Between</label>
+          <input id="splitPeople" type="number" min="1" step="1" value="4">
+        </div>
+      </div>
+      <div class="result">
+        <div id="splitJPY" class="big">¥0 / person</div>
+        <div id="splitMYR" class="small">RM 0.00 / person</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Quick Family Cost</div>
+      <div class="field">
+        <label>Cost Per Person</label>
+        <div class="moneyline"><span class="prefix">¥</span><input id="ppAmount" type="number" inputmode="decimal" placeholder="1500"></div>
+      </div>
+      <div class="result">
+        <div id="familyJPY" class="big">¥0 total</div>
+        <div id="familyMYR" class="small">RM 0.00 total</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WALLET -->
+  <section id="wallet" class="panel">
+    <div class="card">
+      <div class="section-title">Starting Travel Funds</div>
+      <div class="row3">
+        <div class="field">
+          <label>Cash ¥</label>
+          <input id="startCash" type="number" inputmode="decimal" placeholder="100000">
+        </div>
+        <div class="field">
+          <label>ICOCA ¥</label>
+          <input id="startIcoca" type="number" inputmode="decimal" placeholder="10000">
+        </div>
+        <div class="field">
+          <label>Card Budget MYR</label>
+          <input id="startCard" type="number" inputmode="decimal" placeholder="2000">
+        </div>
+      </div>
+      <button id="saveFunds" class="primary" style="width:100%;margin-top:10px;">Save Starting Funds</button>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Add Spending</div>
+      <div class="row">
+        <div class="field">
+          <label>Payment Method</label>
+          <select id="walletMethod">
+            <option value="cash">Cash</option>
+            <option value="icoca">ICOCA</option>
+            <option value="card">Card</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Amount</label>
+          <input id="walletAmount" type="number" inputmode="decimal" placeholder="1200">
+        </div>
+      </div>
+      <div class="field" style="margin-top:10px;">
+        <label>Description</label>
+        <input id="walletDesc" type="text" placeholder="Temple ticket / lunch / train">
+      </div>
+      <button id="addWalletSpend" class="primary" style="width:100%;margin-top:10px;">Add Spending</button>
+      <div class="note">Cash and ICOCA amounts are entered in JPY. Card amount is entered in MYR.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Remaining Balance</div>
+      <div class="summary">
+        <div class="metric"><div class="k">Cash Remaining</div><div id="cashRemaining" class="v">¥0</div></div>
+        <div class="metric"><div class="k">ICOCA Remaining</div><div id="icocaRemaining" class="v">¥0</div></div>
+        <div class="metric"><div class="k">Card Budget Remaining</div><div id="cardRemaining" class="v">RM 0.00</div></div>
+        <div class="metric"><div class="k">Total Spent Equivalent</div><div id="walletSpentMYR" class="v">RM 0.00</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Wallet Transactions</div>
+      <div id="walletList"><div class="note">No spending recorded.</div></div>
+      <button id="clearWallet" class="danger" style="width:100%;margin-top:8px;">Clear Spending History</button>
+    </div>
+  </section>
+
+  <!-- DAILY -->
+  <section id="daily" class="panel">
+    <div class="card">
+      <div class="section-title">Add Daily Expense</div>
+      <div class="row">
+        <div class="field">
+          <label>Date</label>
+          <input id="dailyDate" type="date">
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select id="dailyCat">
+            <option>Transport</option>
+            <option>Meal</option>
+            <option>Shopping</option>
+            <option>Attraction</option>
+            <option>Hotel Tax</option>
+            <option>ICOCA Top-up</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <div class="field">
+          <label>Amount ¥</label>
+          <input id="dailyAmount" type="number" inputmode="decimal" placeholder="3000">
+        </div>
+        <div class="field">
+          <label>Note</label>
+          <input id="dailyNote" type="text" placeholder="Dinner / taxi / ticket">
+        </div>
+      </div>
+      <button id="addDaily" class="primary" style="width:100%;margin-top:10px;">Add Daily Expense</button>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Daily Spending Summary</div>
+      <div class="summary">
+        <div class="metric"><div class="k">Total JPY</div><div id="dailyTotalJPY" class="v">¥0</div></div>
+        <div class="metric"><div class="k">Total MYR</div><div id="dailyTotalMYR" class="v">RM 0.00</div></div>
+        <div class="metric"><div class="k">Average / Day</div><div id="dailyAvgJPY" class="v">¥0</div></div>
+        <div class="metric"><div class="k">Average / Person</div><div id="dailyAvgPP" class="v">¥0</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Expense Log</div>
+      <div id="dailyList"><div class="note">No expenses recorded.</div></div>
+      <button id="clearDaily" class="danger" style="width:100%;margin-top:8px;">Clear Daily Log</button>
+    </div>
+  </section>
+
+  <div class="footer">
+    Uses your own exchange rate, not a live FX rate. Data is saved locally on your device/browser.
+  </div>
+</div>
+
+<script>
+const DEFAULT_RATE = 26.30;
+const fmtJPY = n => '¥' + Math.round(Number(n)||0).toLocaleString('en-US');
+const fmtMYR = n => 'RM ' + (Number(n)||0).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+const state = {
+  walletTx: JSON.parse(localStorage.getItem('japanWalletTx') || '[]'),
+  dailyTx: JSON.parse(localStorage.getItem('japanDailyTx') || '[]')
+};
+
+function getRate(){
+  const el = document.getElementById('rate');
+  const v = parseFloat(el.value);
+  return (!isNaN(v) && v>0) ? v : DEFAULT_RATE;
+}
+function jpyToMyr(jpy){ return jpy * getRate()/1000; }
+function myrToJpy(myr){ return myr * 1000/getRate(); }
+
+function savePrefs(){
+  localStorage.setItem('japanRate', getRate());
+  localStorage.setItem('japanGroupSize', document.getElementById('groupSize').value || 4);
+}
+(function loadPrefs(){
+  const r = parseFloat(localStorage.getItem('japanRate'));
+  if(!isNaN(r) && r>0) document.getElementById('rate').value = r.toFixed(2);
+  const g = parseInt(localStorage.getItem('japanGroupSize'));
+  if(g>0){
+    document.getElementById('groupSize').value = g;
+    document.getElementById('splitPeople').value = g;
+  }
+  ['startCash','startIcoca','startCard'].forEach(id=>{
+    const v=localStorage.getItem(id);
+    if(v!==null) document.getElementById(id).value=v;
+  });
+})();
+
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.panel).classList.add('active');
+  });
+});
+
+function updateConvert(){
+  const j = parseFloat(document.getElementById('convJPY').value)||0;
+  document.getElementById('convMYR').textContent = fmtMYR(jpyToMyr(j));
+  document.getElementById('convNote').textContent = `Rate: RM${getRate().toFixed(2)} per ¥1,000`;
+  const m = parseFloat(document.getElementById('convMYRInput').value)||0;
+  document.getElementById('convJPYResult').textContent = fmtJPY(myrToJpy(m));
+  document.getElementById('unitRate').textContent = `¥1 = RM${(getRate()/1000).toFixed(5)}`;
+}
+['convJPY','convMYRInput','rate'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{savePrefs();updateAll()}));
+document.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>{
+  document.getElementById('convJPY').value=b.dataset.q;
+  updateConvert();
+}));
+document.getElementById('groupSize').addEventListener('input',()=>{
+  const g=parseInt(document.getElementById('groupSize').value)||4;
+  document.getElementById('splitPeople').value=g;
+  savePrefs(); updateSplit(); updateDaily();
+});
+document.getElementById('resetRate').addEventListener('click',()=>{
+  document.getElementById('rate').value=DEFAULT_RATE.toFixed(2);
+  savePrefs(); updateAll();
+});
+
+function updateSplit(){
+  const amt=parseFloat(document.getElementById('splitAmount').value)||0;
+  const ppl=Math.max(1,parseInt(document.getElementById('splitPeople').value)||1);
+  const each=amt/ppl;
+  document.getElementById('splitJPY').textContent=`${fmtJPY(each)} / person`;
+  document.getElementById('splitMYR').textContent=`${fmtMYR(jpyToMyr(each))} / person`;
+
+  const pp=parseFloat(document.getElementById('ppAmount').value)||0;
+  const group=Math.max(1,parseInt(document.getElementById('groupSize').value)||4);
+  const total=pp*group;
+  document.getElementById('familyJPY').textContent=`${fmtJPY(total)} total`;
+  document.getElementById('familyMYR').textContent=`${fmtMYR(jpyToMyr(total))} total`;
+}
+['splitAmount','splitPeople','ppAmount'].forEach(id=>document.getElementById(id).addEventListener('input',updateSplit));
+
+document.getElementById('saveFunds').addEventListener('click',()=>{
+  ['startCash','startIcoca','startCard'].forEach(id=>localStorage.setItem(id,document.getElementById(id).value||0));
+  updateWallet();
+});
+
+document.getElementById('addWalletSpend').addEventListener('click',()=>{
+  const method=document.getElementById('walletMethod').value;
+  const amount=parseFloat(document.getElementById('walletAmount').value);
+  const desc=(document.getElementById('walletDesc').value||'Expense').trim();
+  if(!(amount>0)) return;
+  state.walletTx.unshift({method,amount,desc,ts:new Date().toISOString()});
+  localStorage.setItem('japanWalletTx',JSON.stringify(state.walletTx));
+  document.getElementById('walletAmount').value='';
+  document.getElementById('walletDesc').value='';
+  updateWallet();
+});
+
+function updateWallet(){
+  const sc=parseFloat(document.getElementById('startCash').value)||0;
+  const si=parseFloat(document.getElementById('startIcoca').value)||0;
+  const sCard=parseFloat(document.getElementById('startCard').value)||0;
+  const cashSpent=state.walletTx.filter(x=>x.method==='cash').reduce((a,b)=>a+b.amount,0);
+  const icocaSpent=state.walletTx.filter(x=>x.method==='icoca').reduce((a,b)=>a+b.amount,0);
+  const cardSpent=state.walletTx.filter(x=>x.method==='card').reduce((a,b)=>a+b.amount,0);
+  const remCash=sc-cashSpent, remIcoca=si-icocaSpent, remCard=sCard-cardSpent;
+  document.getElementById('cashRemaining').textContent=fmtJPY(remCash);
+  document.getElementById('icocaRemaining').textContent=fmtJPY(remIcoca);
+  document.getElementById('cardRemaining').textContent=fmtMYR(remCard);
+  document.getElementById('cashRemaining').className='v '+(remCash<0?'negative':'');
+  document.getElementById('icocaRemaining').className='v '+(remIcoca<0?'negative':'');
+  document.getElementById('cardRemaining').className='v '+(remCard<0?'negative':'');
+  const spentEq=jpyToMyr(cashSpent+icocaSpent)+cardSpent;
+  document.getElementById('walletSpentMYR').textContent=fmtMYR(spentEq);
+
+  const box=document.getElementById('walletList');
+  if(!state.walletTx.length){ box.innerHTML='<div class="note">No spending recorded.</div>'; return; }
+  box.innerHTML=state.walletTx.map(x=>{
+    const isCard=x.method==='card';
+    const amountText=isCard?fmtMYR(x.amount):fmtJPY(x.amount);
+    return `<div class="list-item">
+      <div><div class="li-title">${escapeHtml(x.desc)}</div><div class="li-sub">${x.method.toUpperCase()}</div></div>
+      <div class="li-value">${amountText}</div>
+    </div>`;
+  }).join('');
+}
+document.getElementById('clearWallet').addEventListener('click',()=>{
+  state.walletTx=[]; localStorage.removeItem('japanWalletTx'); updateWallet();
+});
+
+const today=new Date();
+document.getElementById('dailyDate').value=today.toISOString().slice(0,10);
+
+document.getElementById('addDaily').addEventListener('click',()=>{
+  const date=document.getElementById('dailyDate').value || new Date().toISOString().slice(0,10);
+  const cat=document.getElementById('dailyCat').value;
+  const amount=parseFloat(document.getElementById('dailyAmount').value);
+  const note=(document.getElementById('dailyNote').value||'').trim();
+  if(!(amount>0)) return;
+  state.dailyTx.push({date,cat,amount,note});
+  state.dailyTx.sort((a,b)=>b.date.localeCompare(a.date));
+  localStorage.setItem('japanDailyTx',JSON.stringify(state.dailyTx));
+  document.getElementById('dailyAmount').value='';
+  document.getElementById('dailyNote').value='';
+  updateDaily();
+});
+
+function updateDaily(){
+  const total=state.dailyTx.reduce((a,b)=>a+b.amount,0);
+  const uniqueDays=[...new Set(state.dailyTx.map(x=>x.date))].length || 1;
+  const group=Math.max(1,parseInt(document.getElementById('groupSize').value)||4);
+  document.getElementById('dailyTotalJPY').textContent=fmtJPY(total);
+  document.getElementById('dailyTotalMYR').textContent=fmtMYR(jpyToMyr(total));
+  document.getElementById('dailyAvgJPY').textContent=fmtJPY(total/uniqueDays);
+  document.getElementById('dailyAvgPP').textContent=fmtJPY(total/group);
+
+  const box=document.getElementById('dailyList');
+  if(!state.dailyTx.length){ box.innerHTML='<div class="note">No expenses recorded.</div>'; return; }
+  box.innerHTML=state.dailyTx.map(x=>`
+    <div class="list-item">
+      <div>
+        <div class="li-title">${escapeHtml(x.cat)}${x.note?` — ${escapeHtml(x.note)}`:''}</div>
+        <div class="li-sub">${escapeHtml(x.date)} • ${fmtMYR(jpyToMyr(x.amount))}</div>
+      </div>
+      <div class="li-value">${fmtJPY(x.amount)}</div>
+    </div>`).join('');
+}
+document.getElementById('clearDaily').addEventListener('click',()=>{
+  state.dailyTx=[]; localStorage.removeItem('japanDailyTx'); updateDaily();
+});
+
+document.getElementById('resetAll').addEventListener('click',()=>{
+  localStorage.removeItem('japanRate');
+  localStorage.removeItem('japanGroupSize');
+  localStorage.removeItem('japanWalletTx');
+  localStorage.removeItem('japanDailyTx');
+  ['startCash','startIcoca','startCard'].forEach(id=>localStorage.removeItem(id));
+  location.reload();
+});
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function updateAll(){ updateConvert(); updateSplit(); updateWallet(); updateDaily(); }
+
+updateAll();
+
+// PWA install + offline support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'block';
+});
+const installBtnEl = document.getElementById('installBtn');
+if (installBtnEl) {
+  installBtnEl.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtnEl.style.display = 'none';
+  });
+}
+window.addEventListener('appinstalled', () => {
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'none';
+});
+
+</script>
+</body>
+</html>
